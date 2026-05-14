@@ -32,7 +32,15 @@ def generate_answer(query: str, context_chunks: list):
         selected_model = "gpt-4.1"
         estimated_cost = "high"
 
-    context = "\n\n".join(context_chunks)
+    # Build context with source attribution
+    formatted_context = []
+
+    for chunk in context_chunks:
+        formatted_context.append(
+            f"Source Document: {chunk['source']}\nContent: {chunk['content']}"
+        )
+
+    context = "\n\n".join(formatted_context)
 
     prompt = f"""
 You are an AI assistant answering strictly from provided document context.
@@ -45,6 +53,7 @@ Question:
 
 Instructions:
 - Answer clearly and concisely
+- Mention source document names when relevant
 - Use only provided context
 - If answer is not in context, say so
 """

@@ -28,15 +28,18 @@ async def upload_file(file: UploadFile = File(...)):
         extracted_text = extract_text_from_pdf(file_path)
         chunks = chunk_text(extracted_text)
 
-        # Create FAISS vector store
+        # Multi-PDF vector store
         if chunks:
-            indexed_chunks = create_vector_store(chunks)
+            indexed_chunks = create_vector_store(
+                chunks=chunks,
+                source_name=file.filename
+            )
 
     return {
         "filename": file.filename,
         "message": "File uploaded successfully",
         "total_characters": len(extracted_text),
         "total_chunks": len(chunks),
-        "indexed_chunks": indexed_chunks,
+        "indexed_chunks_from_this_file": indexed_chunks,
         "sample_chunk": chunks[0] if chunks else "No chunks created"
     }

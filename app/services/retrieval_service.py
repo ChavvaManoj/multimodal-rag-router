@@ -7,32 +7,31 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # Global storage
 document_chunks = []
+chunk_sources = []
 index = None
 
 
-def create_vector_store(chunks):
-    global document_chunks, index
+def create_vector_store(chunks, source_name):
+    global document_chunks, chunk_sources, index
 
-    document_chunks = chunks
+    # Append instead of overwrite
+    document_chunks.extend(chunks)
+    chunk_sources.extend([source_name] * len(chunks))
 
-    # Convert text chunks to embeddings
-    embeddings = model.encode(chunks)
-
-    # Convert to FAISS-compatible format
+    # Generate embeddings for ALL chunks
+    embeddings = model.encode(document_chunks)
     embeddings = np.array(embeddings).astype("float32")
 
-    # Create FAISS index
+    # Rebuild FAISS index
     dimension = embeddings.shape[1]
     index = faiss.IndexFlatL2(dimension)
-
-    # Add embeddings
     index.add(embeddings)
 
     return len(chunks)
 
 
 def search_similar_chunks(query, top_k=3):
-    global index, document_chunks
+    global index, document_chunks, chunk_sources
 
     if index is None:
         return []
@@ -41,13 +40,15 @@ def search_similar_chunks(query, top_k=3):
     query_embedding = model.encode([query])
     query_embedding = np.array(query_embedding).astype("float32")
 
-    # Search
     distances, indices = index.search(query_embedding, top_k)
 
     results = []
 
     for idx in indices[0]:
         if idx < len(document_chunks):
-            results.append(document_chunks[idx])
+            results.append({
+                "source": chunk_sources[idx],
+                "content": document_chunks[idx]
+            })
 
     return results

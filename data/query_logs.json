@@ -12,5 +12,19 @@
         "query_type": "complex",
         "model_used": "gpt-4.1",
         "response_time_seconds": 8.99
+    },
+    {
+        "timestamp": "2026-05-14T19:54:42.428268",
+        "query": "Compare failover setup requirements and migration steps",
+        "query_type": "moderate",
+        "model_used": "gpt-4o",
+        "response_time_seconds": 6.55
+    },
+    {
+        "timestamp": "2026-05-14T20:01:33.138259",
+        "query": "Which document discusses leave policy?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 2.61
     }
 ]
