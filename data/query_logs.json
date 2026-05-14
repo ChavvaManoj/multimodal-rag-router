@@ -1,0 +1,9 @@
+[
+    {
+        "timestamp": "2026-05-14T08:53:25.541632",
+        "query": "give the command for the dump backup",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 4.22
+    }
+]
