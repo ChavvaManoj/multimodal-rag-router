@@ -15,13 +15,15 @@ class ChatRequest(BaseModel):
 def chat(request: ChatRequest):
     relevant_chunks = search_similar_chunks(request.query)
 
-    final_answer = generate_answer(
+    llm_response = generate_answer(
         query=request.query,
         context_chunks=relevant_chunks
     )
 
     return {
         "query": request.query,
-        "answer": final_answer,
+        "query_type": llm_response["query_type"],
+        "model_used": llm_response["model_used"],
+        "answer": llm_response["answer"],
         "relevant_chunks": relevant_chunks
     }
