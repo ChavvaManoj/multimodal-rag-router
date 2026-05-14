@@ -5,5 +5,12 @@
         "query_type": "simple",
         "model_used": "gpt-4o-mini",
         "response_time_seconds": 4.22
+    },
+    {
+        "timestamp": "2026-05-14T08:56:16.798855",
+        "query": "Analyze the risks and compare failover setup requirements.",
+        "query_type": "complex",
+        "model_used": "gpt-4.1",
+        "response_time_seconds": 8.99
     }
 ]

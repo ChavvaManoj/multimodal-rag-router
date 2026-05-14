@@ -14,17 +14,23 @@ def generate_answer(query: str, context_chunks: list):
         return {
             "query_type": "unknown",
             "model_used": "none",
+            "estimated_cost": 0,
             "answer": "No relevant information found."
         }
 
-    # Classify query
+    # Query classification
     query_type = classify_query(query)
 
-    # Model Routing
+    # Router v2 model selection
     if query_type == "simple":
         selected_model = "gpt-4o-mini"
+        estimated_cost = "low"
+    elif query_type == "moderate":
+        selected_model = "gpt-4o"
+        estimated_cost = "medium"
     else:
         selected_model = "gpt-4.1"
+        estimated_cost = "high"
 
     context = "\n\n".join(context_chunks)
 
@@ -61,5 +67,6 @@ Instructions:
     return {
         "query_type": query_type,
         "model_used": selected_model,
+        "estimated_cost": estimated_cost,
         "answer": response.choices[0].message.content
     }

@@ -20,13 +20,13 @@ def chat(request: ChatRequest):
     # Retrieve relevant chunks
     relevant_chunks = search_similar_chunks(request.query)
 
-    # Generate answer
+    # Generate routed response
     llm_response = generate_answer(
         query=request.query,
         context_chunks=relevant_chunks
     )
 
-    # Calculate response time
+    # Response time
     response_time = time.time() - start_time
 
     # Log metrics
@@ -41,6 +41,7 @@ def chat(request: ChatRequest):
         "query": request.query,
         "query_type": llm_response["query_type"],
         "model_used": llm_response["model_used"],
+        "estimated_cost": llm_response["estimated_cost"],
         "response_time_seconds": round(response_time, 2),
         "answer": llm_response["answer"],
         "relevant_chunks": relevant_chunks
