@@ -89,5 +89,19 @@
         "query_type": "simple",
         "model_used": "gpt-4o-mini",
         "response_time_seconds": 2.74
+    },
+    {
+        "timestamp": "2026-05-17T21:37:21.090296",
+        "query": "When does the speaker mention sustainable development?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 2.75
+    },
+    {
+        "timestamp": "2026-05-17T21:37:44.315896",
+        "query": "What is mentioned at 00:07?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 7.66
     }
 ]

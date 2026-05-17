@@ -43,19 +43,22 @@ def generate_answer(query: str, context_chunks: list):
     context = "\n\n".join(formatted_context)
 
     prompt = f"""
-You are an AI assistant answering strictly from provided document context.
+You are an enterprise AI retrieval assistant.
+
+Use ONLY the provided context to answer.
+
+Rules:
+1. If the answer exists in media transcript chunks, include timestamps exactly as shown.
+2. If multiple timestamps are relevant, mention the most relevant one first.
+3. If answer is not in context, say clearly that the information is unavailable.
+4. Do not hallucinate.
+5. Mention source context accurately.
 
 Context:
 {context}
 
-Question:
+User Query:
 {query}
-
-Instructions:
-- Answer clearly and concisely
-- Mention source document names when relevant
-- Use only provided context
-- If answer is not in context, say so
 """
 
     response = client.chat.completions.create(
