@@ -26,5 +26,61 @@
         "query_type": "simple",
         "model_used": "gpt-4o-mini",
         "response_time_seconds": 2.61
+    },
+    {
+        "timestamp": "2026-05-14T20:12:25.877928",
+        "query": "Which document discusses leave policy?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 2.72
+    },
+    {
+        "timestamp": "2026-05-15T20:14:23.206873",
+        "query": "give summary",
+        "query_type": "unknown",
+        "model_used": "none",
+        "response_time_seconds": 0.0
+    },
+    {
+        "timestamp": "2026-05-15T20:14:24.159434",
+        "query": "give summary",
+        "query_type": "unknown",
+        "model_used": "none",
+        "response_time_seconds": 0.0
+    },
+    {
+        "timestamp": "2026-05-15T20:16:23.802230",
+        "query": "how many casual leaves in a year",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 3.33
+    },
+    {
+        "timestamp": "2026-05-15T20:18:23.271965",
+        "query": "give me a stratergy on how to use the casual leaves correctly",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 5.48
+    },
+    {
+        "timestamp": "2026-05-15T20:18:38.862406",
+        "query": "give me a strategy on how to use the casual leaves correctly",
+        "query_type": "complex",
+        "model_used": "gpt-4.1",
+        "response_time_seconds": 2.23
+    },
+    {
+        "timestamp": "2026-05-17T21:22:41.775424",
+        "query": "What does the video discuss?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 3.92
+    },
+    {
+        "timestamp": "2026-05-17T21:27:02.872642",
+        "query": "What does the video discuss?",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 4.93
     }
 ]

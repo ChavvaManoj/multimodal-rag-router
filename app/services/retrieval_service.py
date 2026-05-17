@@ -86,19 +86,53 @@ def search_similar_chunks(query, top_k=3):
     if index is None:
         return []
 
+    # Detect source preference
+    query_lower = query.lower()
+
+    preferred_media = None
+
+    if "video" in query_lower:
+        preferred_media = [".mp4"]
+    elif "audio" in query_lower or "recording" in query_lower:
+        preferred_media = [".mp3", ".wav", ".m4a"]
+
     # Query embedding
     query_embedding = model.encode([query])
     query_embedding = np.array(query_embedding).astype("float32")
 
-    distances, indices = index.search(query_embedding, top_k)
+    # Search larger pool first
+    search_pool = max(top_k * 5, 10)
+
+    distances, indices = index.search(query_embedding, search_pool)
 
     results = []
 
     for idx in indices[0]:
-        if idx < len(document_chunks):
-            results.append({
-                "source": chunk_sources[idx],
-                "content": document_chunks[idx]
-            })
+        if idx >= len(document_chunks):
+            continue
+
+        source = chunk_sources[idx]
+
+        # Media-aware filtering
+        if preferred_media:
+            if not any(source.lower().endswith(ext) for ext in preferred_media):
+                continue
+
+        results.append({
+            "source": source,
+            "content": document_chunks[idx]
+        })
+
+        if len(results) >= top_k:
+            break
+
+    # Fallback if no preferred media found
+    if not results:
+        for idx in indices[0][:top_k]:
+            if idx < len(document_chunks):
+                results.append({
+                    "source": chunk_sources[idx],
+                    "content": document_chunks[idx]
+                })
 
     return results
