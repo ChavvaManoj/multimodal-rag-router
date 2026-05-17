@@ -82,5 +82,12 @@
         "query_type": "simple",
         "model_used": "gpt-4o-mini",
         "response_time_seconds": 4.93
+    },
+    {
+        "timestamp": "2026-05-17T21:31:42.551744",
+        "query": "what happens in the video at 0.08",
+        "query_type": "simple",
+        "model_used": "gpt-4o-mini",
+        "response_time_seconds": 2.74
     }
 ]

@@ -25,15 +25,33 @@ def transcribe_media(file_path: str):
     - wav
     - m4a
     - mp4
+
+    Returns:
+    Full timestamped transcript
     """
 
     extension = file_path.lower().split(".")[-1]
 
-    # Video file
+    # Extract audio if video
     if extension == "mp4":
         file_path = extract_audio_from_video(file_path)
 
-    # Transcribe
+    # Whisper transcription
     result = model.transcribe(file_path)
 
-    return result["text"]
+    transcript_segments = []
+
+    for segment in result["segments"]:
+        start = int(segment["start"])
+        minutes = start // 60
+        seconds = start % 60
+
+        timestamp = f"[{minutes:02}:{seconds:02}]"
+
+        transcript_segments.append(
+            f"{timestamp} {segment['text'].strip()}"
+        )
+
+    full_transcript = "\n".join(transcript_segments)
+
+    return full_transcript
